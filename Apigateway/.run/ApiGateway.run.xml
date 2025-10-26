@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="ApiGateway" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="com.Ecommerce.apigateway.ApigatewayApplication" />
+    <module name="apigateway" />
+    <option name="VM_PARAMETERS" value="-Dspring.cloud.inetutils.preferredNetworks=127.0.0.1 " />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

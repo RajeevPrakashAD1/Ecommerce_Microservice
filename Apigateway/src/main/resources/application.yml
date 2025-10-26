@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: apigateway
+
+  cloud:
+    gateway:
+      server:
+        webflux:
+
+          routes:
+            - id: product-service-route
+              uri: lb://product-service
+              predicates:
+                - Path=/products/**,/categories/**
+
+
+              filters:
+                - name: CircuitBreaker
+                  args:
+                    name: productServiceCircuitBreaker
+                    fallbackUri: forward:/fallback/products
+
+
+            - id: order-service-route
+              uri: http://localhost:6002
+              predicates:
+                - Path=/orders/**
+
+            - id: payment-service-route
+              uri: http://localhost:6003
+              predicates:
+                - Path=/payments/**
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+
+
+    #filters:
+    #  - name: RequestRateLimiter
+    #    args:
+    #      key-resolver: "#{@ipKeyResolver}"
+    #      redis-rate-limiter.replenishRate: 2
+    #      redis-rate-limiter.burstCapacity: 2
